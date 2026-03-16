@@ -1,0 +1,9 @@
+EmployeeId,EmployeeName,Department,Skill1,Skill1_Level,Skill2,Skill2_Level,Skill3,Skill3_Level,Skill4,Skill4_Level,Skill5,Skill5_Level
+1,Alice Martin,Backend,Java,Senior,Spring Boot,Senior,PostgreSQL,Mid,Docker,Mid,Kubernetes,Junior
+2,Bob Chen,Full-Stack,React,Senior,JavaScript,Senior,Node.js,Mid,MongoDB,Mid,GraphQL,Junior
+3,Carol Dubois,Frontend,React,Senior,Vue.js,Senior,TypeScript,Mid,CSS,Senior,Material-UI,Senior
+4,David Engels,Backend,Python,Senior,Django,Senior,PostgreSQL,Senior,REST API,Senior,Machine Learning,Mid
+5,Eve Laurent,DevOps,Docker,Senior,Kubernetes,Senior,AWS,Senior,Terraform,Mid,CI/CD,Senior
+6,Frank Müller,Full-Stack,Java,Mid,React,Mid,Spring Boot,Mid,PostgreSQL,Mid,REST API,Mid
+7,Grace Okoro,QA,Selenium,Senior,Java,Mid,TestNG,Mid,API Testing,Senior,CI/CD,Junior
+8,Henry Sato,Backend,Node.js,Senior,JavaScript,Senior,MongoDB,Senior,Express.js,Senior,Redis,Mid

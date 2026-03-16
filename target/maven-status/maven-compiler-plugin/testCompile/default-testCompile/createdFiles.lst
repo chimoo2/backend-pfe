@@ -1,1 +1,3 @@
 com\example\career\CareerApplicationTests.class
+com\example\career\service\ProjectServiceUnitTest.class
+com\example\career\controller\ProjectControllerTest.class

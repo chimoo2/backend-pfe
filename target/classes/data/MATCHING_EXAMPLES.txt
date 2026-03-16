@@ -1,0 +1,171 @@
+/**
+ * MATCHING EXAMPLE
+ * ================
+ * This file shows how the matching algorithm should work with the provided dataset.
+ * 
+ * SCORING FORMULA:
+ * ----------------
+ * For each project requirement:
+ *   if candidate has skill:
+ *     - Base score: 10 points
+ *     - Level bonus: if candidate level >= required level: +5 points
+ *     - Perfect match (exact level or higher): 15 points
+ *   else:
+ *     - Missing skill: -2 points per required skill
+ * 
+ * Final Score = sum of all skill scores / number of required skills
+ * (normalized to 0-100 scale)
+ */
+
+// ============================================================================
+// PROJECT 102: Microservices Migration
+// Required: Java (Senior x3), Spring Boot (Senior x3), Docker (Mid x2), 
+//           Kubernetes (Mid x1), PostgreSQL (Mid x1)
+// ============================================================================
+
+MATCHING RESULTS:
+1. Alice Martin - Score: 85/100
+   - Java (Senior): ✓ +15 (has Senior)
+   - Spring Boot (Senior): ✓ +15 (has Senior)
+   - Docker (Mid): ✓ +15 (has Mid)
+   - Kubernetes (Mid): ✓ +10 (has Junior, level below)
+   - PostgreSQL (Mid): ✓ +15 (has Mid)
+   REASONING: Perfect fit for backend, though Kubernetes exp is junior
+
+2. Frank Müller - Score: 78/100
+   - Java (Senior): ✓ +10 (has Mid, level below)
+   - Spring Boot (Senior): ✓ +10 (has Mid, level below)
+   - Docker (Mid): ✗ -2 (missing)
+   - Kubernetes (Mid): ✗ -2 (missing)
+   - PostgreSQL (Mid): ✓ +15 (has Mid)
+   REASONING: Good match but less experienced. Needs Docker/Kubernetes training
+
+3. Grace Okoro - Score: 45/100
+   - Java (Senior): ✓ +10 (has Mid, level below)
+   - Spring Boot (Senior): ✗ -2 (missing)
+   - Docker (Mid): ✗ -2 (missing)
+   - Kubernetes (Mid): ✗ -2 (missing)
+   - PostgreSQL (Mid): ✗ -2 (missing)
+   REASONING: QA background, not suitable for backend architecture
+
+// ============================================================================
+// PROJECT 103: DevOps Infrastructure Upgrade
+// Required: Kubernetes (Senior x2), Docker (Senior x2), AWS (Senior x2), 
+//           Terraform (Mid x1), CI/CD (Senior x1)
+// ============================================================================
+
+MATCHING RESULTS:
+1. Eve Laurent - Score: 98/100
+   - Kubernetes (Senior): ✓ +15 (has Senior)
+   - Docker (Senior): ✓ +15 (has Senior)
+   - AWS (Senior): ✓ +15 (has Senior)
+   - Terraform (Mid): ✓ +15 (has Mid)
+   - CI/CD (Senior): ✓ +15 (has Senior)
+   REASONING: PERFECT MATCH - DevOps specialist with all required skills at senior level
+
+2. Alice Martin - Score: 52/100
+   - Kubernetes (Senior): ✗ +10 (has Junior)
+   - Docker (Senior): ✗ +10 (has Mid)
+   - AWS (Senior): ✗ -2 (missing)
+   - Terraform (Mid): ✗ -2 (missing)
+   - CI/CD (Senior): ✗ -2 (missing)
+   REASONING: Backend developer, not DevOps expert. Limited infrastructure experience
+
+// ============================================================================
+// PROJECT 104: Data Analytics Platform
+// Required: Python (Senior x2), Machine Learning (Senior x1), 
+//           PostgreSQL (Mid x1), React (Mid x1)
+// ============================================================================
+
+MATCHING RESULTS:
+1. David Engels - Score: 88/100
+   - Python (Senior): ✓ +15 (has Senior)
+   - Machine Learning (Senior): ✓ +15 (has Mid, slightly below but close)
+   - PostgreSQL (Mid): ✓ +15 (has Senior, above requirement)
+   - React (Mid): ✗ -2 (missing)
+   REASONING: Excellent data backend engineer, just needs React frontend support
+
+2. Bob Chen - Score: 45/100
+   - Python (Senior): ✗ -2 (missing)
+   - Machine Learning (Senior): ✗ -2 (missing)
+   - PostgreSQL (Mid): ✗ -2 (missing)
+   - React (Mid): ✓ +15 (has Senior, above requirement)
+   REASONING: Full-stack engineer, but lacks Python and ML expertise
+
+// ============================================================================
+// PROJECT 105: Mobile App Frontend
+// Required: React (Mid x2), TypeScript (Mid x1), CSS (Mid x1), 
+//           Material-UI (Mid x1)
+// ============================================================================
+
+MATCHING RESULTS:
+1. Carol Dubois - Score: 95/100
+   - React (Mid): ✓ +15 (has Senior)
+   - TypeScript (Mid): ✓ +15 (has Mid)
+   - CSS (Mid): ✓ +15 (has Senior)
+   - Material-UI (Mid): ✓ +15 (has Senior)
+   REASONING: PERFECT MATCH - Senior frontend engineer with all required skills
+
+2. Bob Chen - Score: 88/100
+   - React (Mid): ✓ +15 (has Senior)
+   - TypeScript (Mid): ✗ -2 (missing)
+   - CSS (Mid): ✗ -2 (missing)
+   - Material-UI (Mid): ✗ -2 (missing)
+   REASONING: Good React skills but lacks CSS and Material-UI expertise
+
+3. Frank Müller - Score: 72/100
+   - React (Mid): ✓ +15 (has Mid)
+   - TypeScript (Mid): ✓ +10 (has Mid)
+   - CSS (Mid): ✗ -2 (missing)
+   - Material-UI (Mid): ✗ -2 (missing)
+   REASONING: Full-stack with React, but CSS skills are weak
+
+// ============================================================================
+// ALGORITHM IMPLEMENTATION PSEUDOCODE
+// ============================================================================
+
+function calculateMatchScore(project, candidate) {
+  let score = 0;
+  let totalSkills = project.requiredSkills.length;
+  
+  for (let req of project.requiredSkills) {
+    let candidateSkill = findSkill(candidate, req.skillName);
+    
+    if (candidateSkill) {
+      score += 10; // base skill match
+      
+      if (levelValue(candidateSkill.level) >= levelValue(req.level)) {
+        score += 5; // bonus for meeting level requirement
+      } else if (levelValue(candidateSkill.level) >= levelValue(req.level) - 1) {
+        score += 3; // partial bonus if one level below
+      }
+    } else {
+      score -= 2; // penalty for missing skill
+    }
+  }
+  
+  // Normalize to 0-100
+  return Math.max(0, (score / (totalSkills * 15)) * 100);
+}
+
+function levelValue(level) {
+  return { "Junior": 1, "Mid": 2, "Senior": 3 }[level] || 0;
+}
+
+// ============================================================================
+// DATA QUALITY NOTES
+// ============================================================================
+
+✓ Dataset covers 8 employees across 5 departments (Backend, Frontend, Full-Stack, DevOps, QA)
+✓ 6 projects with varying complexity and skill requirements
+✓ Skills are normalized (consistent naming: React, Java, PostgreSQL, etc.)
+✓ Experience levels are standardized (Junior, Mid, Senior)
+✓ Matching scenarios show both perfect fits and mismatches
+
+⚠ In production, consider:
+  - Soft skills (communication, leadership) beyond technical skills
+  - Availability and scheduling conflicts
+  - Certification and training records
+  - Manager preferences and team dynamics
+  - Geographic location and remote work policies
+  - Salary and budget constraints

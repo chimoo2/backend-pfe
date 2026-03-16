@@ -1,0 +1,7 @@
+ProjectId,ProjectName,Manager,Status,RequiredSkill1,Skill1_Level,Skill1_Count,RequiredSkill2,Skill2_Level,Skill2_Count,RequiredSkill3,Skill3_Level,Skill3_Count,RequiredSkill4,Skill4_Level,Skill4_Count,RequiredSkill5,Skill5_Level,Skill5_Count
+101,E-Commerce Platform Redesign,John Smith,To Do,React,Senior,2,Node.js,Senior,2,MongoDB,Mid,1,REST API,Mid,1,,
+102,Microservices Migration,Jane Doe,In Progress,Java,Senior,3,Spring Boot,Senior,3,Docker,Mid,2,Kubernetes,Mid,1,PostgreSQL,Mid,1
+103,DevOps Infrastructure Upgrade,Robert Johnson,To Do,Kubernetes,Senior,2,Docker,Senior,2,AWS,Senior,2,Terraform,Mid,1,CI/CD,Senior,1
+104,Data Analytics Platform,Lisa Wang,To Do,Python,Senior,2,Machine Learning,Senior,1,PostgreSQL,Mid,1,React,Mid,1,,
+105,Mobile App Frontend,Mike Brown,To Do,React,Mid,2,TypeScript,Mid,1,CSS,Mid,1,Material-UI,Mid,1,,
+106,Backend API Testing Suite,Sarah Davis,In Progress,API Testing,Senior,2,Java,Mid,1,Selenium,Senior,1,CI/CD,Mid,1,,

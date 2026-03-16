@@ -1,5 +1,8 @@
 package com.example.career.controller;
-
+import com.example.career.model.User;
+import com.example.career.repository.UserRepository;
+import com.example.career.service.CvService;
+import com.example.career.dto.DocumentDTO;
 import com.example.career.model.Document;
 import com.example.career.repository.DocumentRepository;
 import com.example.career.security.JwtService;
@@ -23,15 +26,19 @@ import java.util.Optional;
 @RequestMapping("/documents")
 @CrossOrigin(origins = "*")
 public class DocumentController {
+    private final UserRepository userRepository;
 
     private final DocumentRepository documentRepository;
     private final JwtService jwtService;
     private static final String UPLOAD_DIR = "uploads/cvs/";
 
-    public DocumentController(DocumentRepository documentRepository, JwtService jwtService) {
-        this.documentRepository = documentRepository;
-        this.jwtService = jwtService;
-    }
+    public DocumentController(DocumentRepository documentRepository,
+                          JwtService jwtService,
+                          UserRepository userRepository) {
+    this.documentRepository = documentRepository;
+    this.jwtService = jwtService;
+    this.userRepository = userRepository;
+}
 
     /**
      * Endpoint sécurisé pour télécharger un document
@@ -104,7 +111,7 @@ public class DocumentController {
         }
 
         // Récupérer les documents
-        List<Document> documents = documentRepository.findByUserId(userId);
+        List<DocumentDTO> documents = documentRepository.findDocumentDTOsByUserId(userId);
         return ResponseEntity.ok(documents);
     }
 
@@ -155,4 +162,27 @@ public class DocumentController {
 
         return ResponseEntity.ok(Map.of("message", "Document supprimé"));
     }
+    @GetMapping("/cv-skills/{userId}")
+public ResponseEntity<?> getSkills(
+        @PathVariable Long userId,
+        @RequestHeader("Authorization") String authHeader) {
+
+    String token = authHeader.substring(7);
+    String email = jwtService.validateTokenAndGetSubject(token);
+
+    User user = userRepository.findById(userId)
+            .orElseThrow();
+
+    if (!user.getEmail().equals(email)) {
+        return ResponseEntity.status(403).build();
+    }
+
+    Document doc = documentRepository
+            .findByUserIdAndDocumentType(userId, Document.DocumentType.CV)
+            .stream()
+            .findFirst()
+            .orElseThrow();
+
+    return ResponseEntity.ok(doc.getAiReport());
+}
 }

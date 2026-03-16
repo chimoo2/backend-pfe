@@ -15,6 +15,9 @@ public class Document {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+ 
+    @Column(columnDefinition = "TEXT")
+    private String aiReport;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

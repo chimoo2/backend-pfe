@@ -1,15 +1,20 @@
 package com.example.career.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.career.dto.AuthResponse;
+import com.example.career.dto.LoginRequest;
+import com.example.career.dto.RegisterRequest;
+import com.example.career.dto.ResetPasswordRequest;
+import com.example.career.dto.UserDto;
+import com.example.career.mapper.UserMapper;
 import com.example.career.model.User;
 import com.example.career.service.AuthService;
-import com.example.career.dto.RegisterRequest;
-import com.example.career.dto.LoginRequest;
 import com.example.career.security.JwtService;
-import com.example.career.dto.AuthResponse;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,21 +33,28 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest req) {
-        try {
-            User user = new User();
-            user.setPrenom(req.getPrenom());
-            user.setNom(req.getNom());
-            user.setEmail(req.getEmail());
-            user.setPassword(req.getPassword());
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UserDto> register(@Valid @RequestBody RegisterRequest req) {
+        User user = new User();
+        user.setPrenom(req.getPrenom());
+        user.setNom(req.getNom());
+        user.setEmail(req.getEmail());
+        user.setPassword(req.getPassword());
 
-            User saved = authService.register(user);
-            return new ResponseEntity<>(saved, HttpStatus.CREATED);
-        } catch (RuntimeException ex) {
-            Map<String, String> body = new HashMap<>();
-            body.put("error", ex.getMessage());
-            return ResponseEntity.badRequest().body(body);
-        }
+        User saved = authService.register(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(UserMapper.toDto(saved));
+    }
+
+    @PostMapping("/register-public")
+    public ResponseEntity<UserDto> registerPublic(@Valid @RequestBody RegisterRequest req) {
+        User user = new User();
+        user.setPrenom(req.getPrenom());
+        user.setNom(req.getNom());
+        user.setEmail(req.getEmail());
+        user.setPassword(req.getPassword());
+
+        User saved = authService.registerPublic(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(UserMapper.toDto(saved));
     }
 
     @PostMapping("/login")
@@ -70,7 +82,7 @@ public class AuthController {
         }
         java.util.Optional<User> opt = authService.getUserByEmail(email);
         if (opt.isPresent()) {
-            return ResponseEntity.ok(opt.get());
+            return ResponseEntity.ok(UserMapper.toDto(opt.get()));
         } else {
             return ResponseEntity.status(404).body(java.util.Map.of("error", "User not found"));
         }
@@ -83,9 +95,8 @@ public class AuthController {
     }
 
     @PostMapping("/reset-password")
-    public ResponseEntity<String> resetPassword(@RequestParam String token,
-                                                @RequestParam String newPassword) {
-        String result = authService.resetPassword(token, newPassword);
+    public ResponseEntity<String> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
+        String result = authService.resetPassword(request.getToken(), request.getNewPassword());
         return ResponseEntity.ok(result);
     }
 }

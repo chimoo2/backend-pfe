@@ -1,6 +1,8 @@
 package com.example.career.service;
 
 import com.example.career.model.Document;
+import com.example.career.service.AiExtractionService;
+
 import com.example.career.model.User;
 import com.example.career.repository.DocumentRepository;
 import com.example.career.repository.UserRepository;
@@ -21,12 +23,15 @@ public class CvService {
 
     @Value("${cv.upload.dir:uploads/cvs/}")
     private String uploadDir;
+   
     
     private final DocumentRepository documentRepository;
+    private final AiExtractionService aiExtractionService;
     private final UserRepository userRepository;
 
-    public CvService(DocumentRepository documentRepository, UserRepository userRepository) {
+    public CvService(DocumentRepository documentRepository, AiExtractionService aiExtractionService, UserRepository userRepository) {
         this.documentRepository = documentRepository;
+        this.aiExtractionService = aiExtractionService;
         this.userRepository = userRepository;
     }
 
@@ -88,8 +93,23 @@ public class CvService {
         doc.setFileSize(file.getSize());
         doc.setMimeType(file.getContentType());
         doc.setDocumentType(Document.DocumentType.CV);
+          
 
-        return documentRepository.save(doc);
+        // 1️⃣ Sauvegarder en base
+        Document savedDoc = documentRepository.save(doc);
+
+// 2️⃣ Convertir le chemin en fichier physique
+        File physicalFile = filePath.toFile();
+
+// 3️⃣ Appeler le microservice IA
+        String aiResponse = aiExtractionService.extractSkills(physicalFile);
+
+// 4️⃣ Sauvegarder le JSON retourné
+        savedDoc.setAiReport(aiResponse);
+        documentRepository.save(savedDoc);
+
+// 5️⃣ Retourner le document final
+        return savedDoc;
     }
 
     public void deleteDocument(Long docId, Long userId) throws IOException {

@@ -23,6 +23,10 @@ public class User {
     @Column(unique = true)
     private String email;
 
+    // Role used for authorization (ADMIN can create/manage users)
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.ROLE_USER;
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

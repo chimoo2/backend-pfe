@@ -2,9 +2,11 @@ package com.example.career.service;
 
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.career.model.Role;
 import com.example.career.model.User;
 import com.example.career.repository.UserRepository;
 import com.example.career.security.JwtService;
@@ -15,27 +17,51 @@ public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+    private final EmailService emailService;
 
-    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
+    @Value("${app.frontend.base-url:http://localhost:5173}")
+    private String frontendBaseUrl;
+
+    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService, EmailService emailService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
+        this.emailService = emailService;
     }
 
     
     public User register(User user) {
-        // normalize email to avoid case/whitespace mismatches
-        if (user.getEmail() != null) {
-            user.setEmail(user.getEmail().trim().toLowerCase());
-        }
+        normalizeEmail(user);
+        ensureEmailNotTaken(user.getEmail());
 
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            throw new RuntimeException("Email déjà utilisé !");
+        // Default to regular user unless explicitly set to ADMIN
+        if (user.getRole() == null) {
+            user.setRole(Role.ROLE_USER);
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
         return userRepository.save(user);
+    }
+
+    public User registerPublic(User user) {
+        normalizeEmail(user);
+        ensureEmailNotTaken(user.getEmail());
+
+        user.setRole(Role.ROLE_USER);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
+
+    private void normalizeEmail(User user) {
+        if (user.getEmail() != null) {
+            user.setEmail(user.getEmail().trim().toLowerCase());
+        }
+    }
+
+    private void ensureEmailNotTaken(String email) {
+        if (userRepository.findByEmail(email).isPresent()) {
+            throw new RuntimeException("Email déjà utilisé !");
+        }
     }
 
     
@@ -63,19 +89,22 @@ public class AuthService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
 
-      
         String token = UUID.randomUUID().toString();
-
         user.setResetToken(token);
         userRepository.save(user);
 
-       
-        return "Token de réinitialisation : " + token;
+        // send email with reset link
+        String resetUrl = String.format("%s/reset-password?token=%s", frontendBaseUrl, token);
+        emailService.sendResetPasswordEmail(email, resetUrl);
+        //Cela récupère l’URL du frontend React.
+        //Ensuite, il génère un token de réinitialisation unique et l’associe à l’utilisateur dans la base de données.
+        //Enfin, il envoie un email à l’utilisateur avec un lien contenant le token pour réinitialiser son mot de passe.
+        
+
+        return "Si cet email existe, un message de réinitialisation a été envoyé.";
     }
 
-    
     public String resetPassword(String token, String newPassword) {
-
         User user = userRepository.findByResetToken(token)
                 .orElseThrow(() -> new RuntimeException("Token invalide"));
 
@@ -91,3 +120,4 @@ public class AuthService {
         return userRepository.findByEmail(email);
     }
 }
+

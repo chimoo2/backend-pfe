@@ -23,4 +23,12 @@ public class UserService {
     public java.util.Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+    public java.util.List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    public java.util.Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
 }

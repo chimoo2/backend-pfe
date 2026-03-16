@@ -1,0 +1,176 @@
+[
+  {
+    "id": 1,
+    "name": "Alice Martin",
+    "email": "alice.martin@company.com",
+    "department": "Backend",
+    "skills": [
+      { "name": "Java", "level": "Senior", "yearsExperience": 8 },
+      { "name": "Spring Boot", "level": "Senior", "yearsExperience": 6 },
+      { "name": "Spring Cloud", "level": "Intermediate", "yearsExperience": 3 },
+      { "name": "PostgreSQL", "level": "Senior", "yearsExperience": 7 },
+      { "name": "MySQL", "level": "Intermediate", "yearsExperience": 4 },
+      { "name": "Docker", "level": "Senior", "yearsExperience": 5 },
+      { "name": "Kubernetes", "level": "Intermediate", "yearsExperience": 2 },
+      { "name": "REST API", "level": "Senior", "yearsExperience": 7 },
+      { "name": "Microservices", "level": "Senior", "yearsExperience": 4 },
+      { "name": "Maven", "level": "Senior", "yearsExperience": 6 },
+      { "name": "Git", "level": "Senior", "yearsExperience": 8 },
+      { "name": "JUnit", "level": "Senior", "yearsExperience": 5 }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Bob Chen",
+    "email": "bob.chen@company.com",
+    "department": "Full-Stack",
+    "skills": [
+      { "name": "React", "level": "Senior", "yearsExperience": 7 },
+      { "name": "Vue.js", "level": "Intermediate", "yearsExperience": 3 },
+      { "name": "Angular", "level": "Junior", "yearsExperience": 1 },
+      { "name": "TypeScript", "level": "Senior", "yearsExperience": 5 },
+      { "name": "JavaScript", "level": "Senior", "yearsExperience": 8 },
+      { "name": "Node.js", "level": "Senior", "yearsExperience": 6 },
+      { "name": "Express.js", "level": "Senior", "yearsExperience": 5 },
+      { "name": "MongoDB", "level": "Intermediate", "yearsExperience": 4 },
+      { "name": "PostgreSQL", "level": "Intermediate", "yearsExperience": 3 },
+      { "name": "GraphQL", "level": "Intermediate", "yearsExperience": 2 },
+      { "name": "REST API", "level": "Senior", "yearsExperience": 6 },
+      { "name": "HTML5", "level": "Senior", "yearsExperience": 8 },
+      { "name": "CSS3", "level": "Senior", "yearsExperience": 7 },
+      { "name": "Material-UI", "level": "Intermediate", "yearsExperience": 3 }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Carol Dubois",
+    "email": "carol.dubois@company.com",
+    "department": "Frontend",
+    "skills": [
+      { "name": "React", "level": "Senior", "yearsExperience": 6 },
+      { "name": "Vue.js", "level": "Senior", "yearsExperience": 5 },
+      { "name": "TypeScript", "level": "Senior", "yearsExperience": 4 },
+      { "name": "JavaScript", "level": "Senior", "yearsExperience": 7 },
+      { "name": "CSS", "level": "Senior", "yearsExperience": 7 },
+      { "name": "SASS", "level": "Senior", "yearsExperience": 5 },
+      { "name": "Material-UI", "level": "Senior", "yearsExperience": 4 },
+      { "name": "Bootstrap", "level": "Senior", "yearsExperience": 6 },
+      { "name": "Tailwind CSS", "level": "Intermediate", "yearsExperience": 2 },
+      { "name": "HTML5", "level": "Senior", "yearsExperience": 7 },
+      { "name": "Webpack", "level": "Intermediate", "yearsExperience": 3 },
+      { "name": "Git", "level": "Senior", "yearsExperience": 6 },
+      { "name": "UI/UX Design", "level": "Intermediate", "yearsExperience": 3 },
+      { "name": "Figma", "level": "Intermediate", "yearsExperience": 2 }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "David Engels",
+    "email": "david.engels@company.com",
+    "department": "Backend",
+    "skills": [
+      { "name": "Python", "level": "Senior", "yearsExperience": 9 },
+      { "name": "Django", "level": "Senior", "yearsExperience": 6 },
+      { "name": "Flask", "level": "Intermediate", "yearsExperience": 3 },
+      { "name": "FastAPI", "level": "Intermediate", "yearsExperience": 2 },
+      { "name": "PostgreSQL", "level": "Senior", "yearsExperience": 7 },
+      { "name": "MongoDB", "level": "Intermediate", "yearsExperience": 4 },
+      { "name": "REST API", "level": "Senior", "yearsExperience": 6 },
+      { "name": "Celery", "level": "Intermediate", "yearsExperience": 3 },
+      { "name": "Redis", "level": "Intermediate", "yearsExperience": 2 },
+      { "name": "Docker", "level": "Intermediate", "yearsExperience": 2 },
+      { "name": "Machine Learning", "level": "Intermediate", "yearsExperience": 2 },
+      { "name": "Pandas", "level": "Intermediate", "yearsExperience": 2 },
+      { "name": "NumPy", "level": "Intermediate", "yearsExperience": 2 },
+      { "name": "Pytest", "level": "Senior", "yearsExperience": 5 }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Eve Laurent",
+    "email": "eve.laurent@company.com",
+    "department": "DevOps",
+    "skills": [
+      { "name": "Docker", "level": "Senior", "yearsExperience": 6 },
+      { "name": "Kubernetes", "level": "Senior", "yearsExperience": 5 },
+      { "name": "Docker Compose", "level": "Senior", "yearsExperience": 4 },
+      { "name": "AWS", "level": "Senior", "yearsExperience": 7 },
+      { "name": "Terraform", "level": "Senior", "yearsExperience": 4 },
+      { "name": "Ansible", "level": "Intermediate", "yearsExperience": 3 },
+      { "name": "CI/CD", "level": "Senior", "yearsExperience": 5 },
+      { "name": "Jenkins", "level": "Senior", "yearsExperience": 5 },
+      { "name": "GitLab CI", "level": "Intermediate", "yearsExperience": 2 },
+      { "name": "GitHub Actions", "level": "Intermediate", "yearsExperience": 2 },
+      { "name": "Linux", "level": "Senior", "yearsExperience": 8 },
+      { "name": "Bash Scripting", "level": "Senior", "yearsExperience": 7 },
+      { "name": "Prometheus", "level": "Intermediate", "yearsExperience": 2 },
+      { "name": "ELK Stack", "level": "Intermediate", "yearsExperience": 2 }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Frank Müller",
+    "email": "frank.muller@company.com",
+    "department": "Full-Stack",
+    "skills": [
+      { "name": "Java", "level": "Intermediate", "yearsExperience": 4 },
+      { "name": "Spring Boot", "level": "Intermediate", "yearsExperience": 3 },
+      { "name": "React", "level": "Intermediate", "yearsExperience": 3 },
+      { "name": "TypeScript", "level": "Intermediate", "yearsExperience": 2 },
+      { "name": "Node.js", "level": "Junior", "yearsExperience": 1 },
+      { "name": "JavaScript", "level": "Intermediate", "yearsExperience": 3 },
+      { "name": "PostgreSQL", "level": "Intermediate", "yearsExperience": 4 },
+      { "name": "MySQL", "level": "Junior", "yearsExperience": 1 },
+      { "name": "REST API", "level": "Intermediate", "yearsExperience": 3 },
+      { "name": "Docker", "level": "Junior", "yearsExperience": 1 },
+      { "name": "Git", "level": "Intermediate", "yearsExperience": 4 },
+      { "name": "Maven", "level": "Intermediate", "yearsExperience": 3 },
+      { "name": "HTML5", "level": "Intermediate", "yearsExperience": 3 },
+      { "name": "CSS3", "level": "Intermediate", "yearsExperience": 3 }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Grace Okoro",
+    "email": "grace.okoro@company.com",
+    "department": "QA",
+    "skills": [
+      { "name": "Selenium", "level": "Senior", "yearsExperience": 6 },
+      { "name": "Java", "level": "Intermediate", "yearsExperience": 5 },
+      { "name": "Python", "level": "Intermediate", "yearsExperience": 3 },
+      { "name": "TestNG", "level": "Senior", "yearsExperience": 5 },
+      { "name": "JUnit", "level": "Intermediate", "yearsExperience": 3 },
+      { "name": "API Testing", "level": "Senior", "yearsExperience": 5 },
+      { "name": "Postman", "level": "Senior", "yearsExperience": 4 },
+      { "name": "REST API", "level": "Senior", "yearsExperience": 5 },
+      { "name": "CI/CD", "level": "Junior", "yearsExperience": 1 },
+      { "name": "Git", "level": "Intermediate", "yearsExperience": 4 },
+      { "name": "Test Automation", "level": "Senior", "yearsExperience": 6 },
+      { "name": "BDD", "level": "Intermediate", "yearsExperience": 2 },
+      { "name": "Cucumber", "level": "Intermediate", "yearsExperience": 2 },
+      { "name": "SQL", "level": "Intermediate", "yearsExperience": 3 }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Henry Sato",
+    "email": "henry.sato@company.com",
+    "department": "Backend",
+    "skills": [
+      { "name": "Node.js", "level": "Senior", "yearsExperience": 7 },
+      { "name": "JavaScript", "level": "Senior", "yearsExperience": 8 },
+      { "name": "TypeScript", "level": "Senior", "yearsExperience": 4 },
+      { "name": "Express.js", "level": "Senior", "yearsExperience": 5 },
+      { "name": "MongoDB", "level": "Senior", "yearsExperience": 6 },
+      { "name": "PostgreSQL", "level": "Intermediate", "yearsExperience": 3 },
+      { "name": "Redis", "level": "Senior", "yearsExperience": 4 },
+      { "name": "Elasticsearch", "level": "Intermediate", "yearsExperience": 2 },
+      { "name": "REST API", "level": "Senior", "yearsExperience": 6 },
+      { "name": "GraphQL", "level": "Intermediate", "yearsExperience": 2 },
+      { "name": "Docker", "level": "Intermediate", "yearsExperience": 3 },
+      { "name": "AWS", "level": "Junior", "yearsExperience": 1 },
+      { "name": "Git", "level": "Senior", "yearsExperience": 7 },
+      { "name": "npm/yarn", "level": "Senior", "yearsExperience": 6 }
+    ]
+  }
+]

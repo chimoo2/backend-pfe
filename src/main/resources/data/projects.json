@@ -1,0 +1,97 @@
+[
+  {
+    "id": 101,
+    "name": "E-Commerce Platform Redesign",
+    "description": "Modernize our e-commerce platform with React and Node.js",
+    "manager": "john.smith@company.com",
+    "status": "To Do",
+    "startDate": "2026-03-15",
+    "endDate": "2026-09-15",
+    "requiredSkills": [
+      { "skillName": "React", "level": "Senior", "count": 2 },
+      { "skillName": "Node.js", "level": "Senior", "count": 2 },
+      { "skillName": "MongoDB", "level": "Mid", "count": 1 },
+      { "skillName": "REST API", "level": "Mid", "count": 1 }
+    ],
+    "categoryRequirements": [
+      { "filterType": "family", "filterValue": "Frontend", "description": "Frontend expertise", "minCriticality": 3, "count": 1 }
+    ]
+  },
+  {
+    "id": 102,
+    "name": "Microservices Migration",
+    "description": "Migrate monolithic Java application to microservices",
+    "manager": "jane.doe@company.com",
+    "status": "In Progress",
+    "startDate": "2026-01-10",
+    "endDate": "2026-08-10",
+    "requiredSkills": [
+      { "skillName": "Java", "level": "Senior", "count": 3 },
+      { "skillName": "Spring Boot", "level": "Senior", "count": 3 },
+      { "skillName": "Docker", "level": "Mid", "count": 2 },
+      { "skillName": "Kubernetes", "level": "Mid", "count": 1 },
+      { "skillName": "PostgreSQL", "level": "Mid", "count": 1 }
+    ]
+  },
+  {
+    "id": 103,
+    "name": "DevOps Infrastructure Upgrade",
+    "description": "Upgrade infrastructure to Kubernetes and AWS",
+    "manager": "robert.johnson@company.com",
+    "status": "To Do",
+    "startDate": "2026-04-01",
+    "endDate": "2026-10-01",
+    "requiredSkills": [
+      { "skillName": "Kubernetes", "level": "Senior", "count": 2 },
+      { "skillName": "Docker", "level": "Senior", "count": 2 },
+      { "skillName": "AWS", "level": "Senior", "count": 2 },
+      { "skillName": "Terraform", "level": "Mid", "count": 1 },
+      { "skillName": "CI/CD", "level": "Senior", "count": 1 }
+    ]
+  },
+  {
+    "id": 104,
+    "name": "Data Analytics Platform",
+    "description": "Build real-time analytics dashboard",
+    "manager": "lisa.wang@company.com",
+    "status": "To Do",
+    "startDate": "2026-05-01",
+    "endDate": "2026-11-01",
+    "requiredSkills": [
+      { "skillName": "Python", "level": "Senior", "count": 2 },
+      { "skillName": "Machine Learning", "level": "Senior", "count": 1 },
+      { "skillName": "PostgreSQL", "level": "Mid", "count": 1 },
+      { "skillName": "React", "level": "Mid", "count": 1 }
+    ]
+  },
+  {
+    "id": 105,
+    "name": "Mobile App Frontend",
+    "description": "Build responsive mobile-first frontend",
+    "manager": "mike.brown@company.com",
+    "status": "To Do",
+    "startDate": "2026-03-20",
+    "endDate": "2026-07-20",
+    "requiredSkills": [
+      { "skillName": "React", "level": "Mid", "count": 2 },
+      { "skillName": "TypeScript", "level": "Mid", "count": 1 },
+      { "skillName": "CSS", "level": "Mid", "count": 1 },
+      { "skillName": "Material-UI", "level": "Mid", "count": 1 }
+    ]
+  },
+  {
+    "id": 106,
+    "name": "Backend API Testing Suite",
+    "description": "Comprehensive API testing for microservices",
+    "manager": "sarah.davis@company.com",
+    "status": "In Progress",
+    "startDate": "2026-02-01",
+    "endDate": "2026-06-01",
+    "requiredSkills": [
+      { "skillName": "API Testing", "level": "Senior", "count": 2 },
+      { "skillName": "Java", "level": "Mid", "count": 1 },
+      { "skillName": "Selenium", "level": "Senior", "count": 1 },
+      { "skillName": "CI/CD", "level": "Mid", "count": 1 }
+    ]
+  }
+]

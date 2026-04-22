@@ -101,11 +101,11 @@ public class ProjectControllerTest {
         projectDto.setStatus("active");
         projectDto.setDescription("New Description");
         projectDto.setRequiredSkills(Arrays.asList(
-                new RequiredSkillDto(null, "Java", "Advanced", 3, null, null, null, null),
-                new RequiredSkillDto(null, "Spring", "Intermediate", 2, null, null, null, null)
+                new RequiredSkillDto(null, "Java", "Advanced", 3, null, null, null, null, null),
+                new RequiredSkillDto(null, "Spring", "Intermediate", 2, null, null, null, null, null)
         ));
         projectDto.setCategoryRequirements(Arrays.asList(
-                new SkillCategoryRequirementDto(null, "family", "Backend", "Need backend", 3, 2)
+                new SkillCategoryRequirementDto(null, "family", "Backend", "Need backend", 3)
         ));
 
         ProjectDto createdProject = new ProjectDto();
@@ -179,7 +179,7 @@ public class ProjectControllerTest {
     public void testGetMatchingCandidates() throws Exception {
         // Arrange
         ProjectService.MatchingResult result = new ProjectService.MatchingResult();
-        result.setProjectId(1L);
+        result.setProjectId("1");
         result.setProjectName("Project 1");
         result.setSkillCount(2);
         result.setMatchingScore(20.0);

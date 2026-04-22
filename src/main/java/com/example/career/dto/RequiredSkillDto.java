@@ -12,6 +12,7 @@ public class RequiredSkillDto {
     private String skillName;
     private String level;
     private Integer count;
+    private Integer criticality;
     // optional taxonomy metadata
     private String domain;
     private String family;

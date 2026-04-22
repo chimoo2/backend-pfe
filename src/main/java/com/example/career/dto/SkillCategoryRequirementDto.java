@@ -17,5 +17,4 @@ public class SkillCategoryRequirementDto {
     private String filterValue; // e.g., "Backend", "Data Science"
     private String description;
     private Integer minCriticality;
-    private Integer count;
 }

@@ -172,5 +172,52 @@
       { "name": "Git", "level": "Senior", "yearsExperience": 7 },
       { "name": "npm/yarn", "level": "Senior", "yearsExperience": 6 }
     ]
+  },
+  {
+    "id": 9,
+    "name": "Nina Moreau",
+    "email": "nina.moreau@company.com",
+    "department": "Data Science",
+    "skills": [
+      { "name": "Python", "level": "Senior", "yearsExperience": 8 },
+      { "name": "Machine Learning", "level": "Senior", "yearsExperience": 6 },
+      { "name": "Natural Language Processing", "level": "Intermediate", "yearsExperience": 4 },
+      { "name": "FastAPI", "level": "Intermediate", "yearsExperience": 3 },
+      { "name": "PostgreSQL", "level": "Senior", "yearsExperience": 5 },
+      { "name": "Docker", "level": "Mid", "yearsExperience": 3 },
+      { "name": "Git", "level": "Senior", "yearsExperience": 6 },
+      { "name": "Pandas", "level": "Senior", "yearsExperience": 5 },
+      { "name": "NumPy", "level": "Senior", "yearsExperience": 5 }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Alex Renault",
+    "email": "alex.renault@company.com",
+    "department": "ML Engineering",
+    "skills": [
+      { "name": "Python", "level": "Senior", "yearsExperience": 7 },
+      { "name": "TensorFlow", "level": "Senior", "yearsExperience": 5 },
+      { "name": "Keras", "level": "Senior", "yearsExperience": 4 },
+      { "name": "Machine Learning", "level": "Senior", "yearsExperience": 6 },
+      { "name": "Docker", "level": "Mid", "yearsExperience": 2 },
+      { "name": "Linux", "level": "Intermediate", "yearsExperience": 4 },
+      { "name": "REST API", "level": "Intermediate", "yearsExperience": 3 }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Isabelle Laurent",
+    "email": "isabelle.laurent@company.com",
+    "department": "MLOps",
+    "skills": [
+      { "name": "Docker", "level": "Senior", "yearsExperience": 6 },
+      { "name": "Kubernetes", "level": "Intermediate", "yearsExperience": 4 },
+      { "name": "AWS", "level": "Intermediate", "yearsExperience": 4 },
+      { "name": "Python", "level": "Intermediate", "yearsExperience": 4 },
+      { "name": "Machine Learning", "level": "Intermediate", "yearsExperience": 3 },
+      { "name": "FastAPI", "level": "Intermediate", "yearsExperience": 2 },
+      { "name": "Git", "level": "Senior", "yearsExperience": 5 }
+    ]
   }
 ]

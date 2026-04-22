@@ -45,6 +45,8 @@ public class SecurityConfig {
                         .requestMatchers("/auth/login", "/auth/forgot-password", "/auth/reset-password", "/auth/register-public").permitAll()
                         // Only admins can create new accounts and manage users
                         .requestMatchers("/auth/register", "/admin/**").hasRole("ADMIN")
+                        // Explicit allow for notification and assignment endpoints
+                        .requestMatchers("/api/projects/notifications/**", "/api/projects/assigned/**", "/api/projects/*/assign/**").permitAll()
                         // Public read-only resources (projects/skills are used for catalog browsing)
                         .requestMatchers("/api/projects", "/api/projects/**", "/api/skills/**", "/", "/index.html", "/static/**", "/uploads/**").permitAll()
                         .anyRequest().authenticated()

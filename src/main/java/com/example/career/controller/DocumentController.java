@@ -24,7 +24,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/documents")
-@CrossOrigin(origins = "*")
 public class DocumentController {
     private final UserRepository userRepository;
 

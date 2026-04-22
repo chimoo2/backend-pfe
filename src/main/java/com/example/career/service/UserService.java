@@ -31,4 +31,21 @@ public class UserService {
     public java.util.Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
+
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    public User updateUser(Long id, User updated) {
+        User existing = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        existing.setPrenom(updated.getPrenom());
+        existing.setNom(updated.getNom());
+        existing.setEmail(updated.getEmail());
+        existing.setRole(updated.getRole());
+        if (updated.getPassword() != null && !updated.getPassword().isBlank()) {
+            existing.setPassword(passwordEncoder.encode(updated.getPassword()));
+        }
+        return userRepository.save(existing);
+    }
 }

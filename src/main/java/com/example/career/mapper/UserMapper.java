@@ -16,6 +16,7 @@ public class UserMapper {
         dto.setPhone(user.getPhone());
         dto.setCompany(user.getCompany());
         dto.setPosition(user.getPosition());
+        dto.setCvPath(user.getCvPath());
         return dto;
     }
 }

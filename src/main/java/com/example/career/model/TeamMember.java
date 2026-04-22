@@ -1,5 +1,6 @@
 package com.example.career.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,6 +13,11 @@ public class TeamMember {
     private String lastName;
     private String email;
     private String role;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id")
+    @JsonIgnore
+    private Project project;
 
     public TeamMember() {}
 
@@ -60,5 +66,13 @@ public class TeamMember {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 }

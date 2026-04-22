@@ -27,6 +27,7 @@ public class ProjectMapper {
         dto.setEndDate(project.getEndDate());
         dto.setStatus(project.getStatus());
         dto.setDescription(project.getDescription());
+        dto.setCount(project.getCount());
 
         if (project.getRequiredSkills() != null) {
             List<RequiredSkillDto> skillDtos = project.getRequiredSkills().stream()
@@ -57,6 +58,7 @@ public class ProjectMapper {
         project.setEndDate(dto.getEndDate());
         project.setStatus(dto.getStatus());
         project.setDescription(dto.getDescription());
+        project.setCount(dto.getCount());
 
         if (dto.getRequiredSkills() != null) {
             List<RequiredSkill> skills = dto.getRequiredSkills().stream()
@@ -84,6 +86,7 @@ public class ProjectMapper {
         dto.setSkillName(skill.getSkillName());
         dto.setLevel(skill.getLevel());
         dto.setCount(skill.getCount());
+        dto.setCriticality(skill.getCriticality());
         dto.setDomain(skill.getDomain());
         dto.setFamily(skill.getFamily());
         dto.setCategory(skill.getCategory());
@@ -102,6 +105,7 @@ public class ProjectMapper {
         skill.setSkillName(dto.getSkillName());
         skill.setLevel(dto.getLevel());
         skill.setCount(dto.getCount());
+        skill.setCriticality(dto.getCriticality());
         skill.setDomain(dto.getDomain());
         skill.setFamily(dto.getFamily());
         skill.setCategory(dto.getCategory());
@@ -125,7 +129,6 @@ public class ProjectMapper {
         dto.setFilterValue(req.getFilterValue());
         dto.setDescription(req.getDescription());
         dto.setMinCriticality(req.getMinCriticality());
-        dto.setCount(req.getCount());
         return dto;
     }
 
@@ -137,7 +140,6 @@ public class ProjectMapper {
         req.setFilterValue(dto.getFilterValue());
         req.setDescription(dto.getDescription());
         req.setMinCriticality(dto.getMinCriticality());
-        req.setCount(dto.getCount());
         return req;
     }
 }

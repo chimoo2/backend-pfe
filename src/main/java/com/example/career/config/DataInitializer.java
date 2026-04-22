@@ -157,44 +157,43 @@ public class DataInitializer {
         }
     }
 
-  @Transactional
-private void loadProjects() {
-    try {
+    @Transactional
+    private void loadProjects() {
+        try {
 
-        long existingCount = projectRepository.count();
+            ClassPathResource resource = new ClassPathResource("data/projects.json");
+            InputStream inputStream = resource.getInputStream();
 
-        if (existingCount > 0) {
-            log.info("Projects already exist in database. Skipping sample loading.");
-            return;
-        }
+            List<Project> projects = objectMapper.readValue(
+                    inputStream,
+                    new TypeReference<List<Project>>() {}
+            );
 
-        ClassPathResource resource = new ClassPathResource("data/projects.json");
-        InputStream inputStream = resource.getInputStream();
-
-        List<Project> projects = objectMapper.readValue(
-                inputStream,
-                new TypeReference<List<Project>>() {}
-        );
-
-        for (Project project : projects) {
-
-            if (project.getRequiredSkills() != null) {
-                for (RequiredSkill skill : project.getRequiredSkills()) {
-                    skill.setProject(project);
+            int loadedCount = 0;
+            for (Project project : projects) {
+                if (projectRepository.existsById(project.getId())) {
+                    log.info("Project already exists in database, skipping: {} (id={})", project.getName(), project.getId());
+                    continue;
                 }
+
+                if (project.getRequiredSkills() != null) {
+                    for (RequiredSkill skill : project.getRequiredSkills()) {
+                        skill.setProject(project);
+                    }
+                }
+
+                if (project.getCategoryRequirements() != null) {
+                    project.getCategoryRequirements().forEach(req -> req.setProject(project));
+                }
+
+                projectRepository.save(project);
+                loadedCount++;
             }
 
-            if (project.getCategoryRequirements() != null) {
-                project.getCategoryRequirements().forEach(req -> req.setProject(project));
-            }
+            log.info("Loaded {} new projects into database", loadedCount);
+
+        } catch (Exception e) {
+            log.error("Error loading projects", e);
         }
-
-        projectRepository.saveAll(projects);
-
-        log.info("Loaded {} projects into database", projects.size());
-
-    } catch (Exception e) {
-        log.error("Error loading projects", e);
     }
-}
 }

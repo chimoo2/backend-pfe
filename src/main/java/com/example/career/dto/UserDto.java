@@ -17,4 +17,5 @@ public class UserDto {
     private String phone;
     private String company;
     private String position;
+    private String cvPath;
 }

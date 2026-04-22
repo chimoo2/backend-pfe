@@ -14,7 +14,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/profile")
-@CrossOrigin(origins = "*")
 public class ProfileController {
 
     private final CvService cvService;

@@ -47,10 +47,10 @@ public class ProjectServiceUnitTest {
         ProjectDto dto = new ProjectDto();
         dto.setId(5L);
         dto.setName("TestProj");
-        RequiredSkillDto skillDto = new RequiredSkillDto(null, "React", "Senior", 1,
+        RequiredSkillDto skillDto = new RequiredSkillDto(null, "React", "Senior", 1, null,
                 "Software Engineering", "Frontend", "Programming Language", "Technical");
         dto.setRequiredSkills(Arrays.asList(skillDto));
-        SkillCategoryRequirementDto catReq = new SkillCategoryRequirementDto(null, "family", "Backend", "desc", 4, 2);
+        SkillCategoryRequirementDto catReq = new SkillCategoryRequirementDto(null, "family", "Backend", "desc", 4);
         dto.setCategoryRequirements(Arrays.asList(catReq));
 
         Map<String,Object> conv = service.convertProjectForMicroservice(dto);

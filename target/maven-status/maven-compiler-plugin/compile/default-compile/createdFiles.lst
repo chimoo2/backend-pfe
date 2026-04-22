@@ -6,12 +6,14 @@ com\example\career\service\UserService.class
 com\example\career\model\RequiredSkill.class
 com\example\career\service\ProjectService.class
 com\example\career\repository\ProjectMatchingRepository.class
+com\example\career\service\ProjectService$2.class
 com\example\career\config\WebMvcConfig.class
 com\example\career\service\ProjectService$MatchingResult.class
 com\example\career\config\SecurityConfig.class
 com\example\career\mapper\UserMapper.class
 com\example\career\repository\DocumentRepository.class
 com\example\career\dto\DocumentDTO.class
+com\example\career\repository\TeamMemberRepository.class
 com\example\career\config\DataInitializer.class
 com\example\career\service\CvService.class
 com\example\career\model\SkillTaxonomy$SkillTaxonomyBuilder.class

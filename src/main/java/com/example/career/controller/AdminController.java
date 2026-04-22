@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/admin")
-@CrossOrigin(origins = "*")
 public class AdminController {
 
     private final AuthService authService;
@@ -56,5 +55,28 @@ public class AdminController {
                 .map(UserMapper::toDto)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/users/{id}")
+    public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @Valid @RequestBody CreateUserRequest request) {
+        User user = new User();
+        user.setPrenom(request.getPrenom());
+        user.setNom(request.getNom());
+        user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword());
+        user.setRole(request.getRole());
+        User updated = userService.updateUser(id, user);
+        return ResponseEntity.ok(UserMapper.toDto(updated));
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+        if (!userService.findById(id).isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        userService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }

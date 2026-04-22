@@ -24,6 +24,8 @@ public class Project {
     @Column(length = 2000)
     private String description;
 
+    private Integer count; // nombre de personnes nécessaires pour le projet
+
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     //Un projet peut avoir plusieurs compétences requises
@@ -38,6 +40,10 @@ public class Project {
     @JsonIgnore
     //Un projet peut avoir plusieurs résultats de matching
     private List<ProjectMatching> matchings = new ArrayList<>();
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<TeamMember> teamMembers = new ArrayList<>();
 
     // constructors
     public Project() {}
@@ -116,6 +122,14 @@ public class Project {
         this.description = description;
     }
 
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
     public List<RequiredSkill> getRequiredSkills() {
         return requiredSkills;
     }
@@ -171,5 +185,24 @@ public class Project {
     public void removeProjectMatching(ProjectMatching matching) {
         matchings.remove(matching);
         matching.setProject(null);
+    }
+
+    public List<TeamMember> getTeamMembers() {
+        return teamMembers;
+    }
+
+    public void setTeamMembers(List<TeamMember> teamMembers) {
+        this.teamMembers = teamMembers;
+        teamMembers.forEach(member -> member.setProject(this));
+    }
+
+    public void addTeamMember(TeamMember teamMember) {
+        teamMembers.add(teamMember);
+        teamMember.setProject(this);
+    }
+
+    public void removeTeamMember(TeamMember teamMember) {
+        teamMembers.remove(teamMember);
+        teamMember.setProject(null);
     }
 }

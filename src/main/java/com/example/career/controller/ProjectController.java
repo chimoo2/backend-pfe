@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/projects")
 // allow both dev ports, in case Vite uses 5173 or 5175
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:5175"})
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:5175", "http://localhost:5176"})
 public class ProjectController {
 
     @Autowired
@@ -47,6 +47,37 @@ public class ProjectController {
             return ResponseEntity.ok(project);
         }
         return ResponseEntity.notFound().build();
+    }
+    
+    @PostMapping("/{id}/assign/{employeeId}")
+    public ResponseEntity<?> assignEmployeeToProject(@PathVariable Long id, @PathVariable String employeeId) {
+        try {
+            ProjectDto project = projectService.assignEmployeeToProject(id, employeeId);
+            if (project != null) {
+                return ResponseEntity.ok(project);
+            }
+            return ResponseEntity.notFound().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    
+    @GetMapping("/assigned/user/{userId}")
+    public ResponseEntity<?> getAssignedProjectsForUser(@PathVariable Long userId) {
+        try {
+            return ResponseEntity.ok(projectService.getAssignedProjectsForUser(userId));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/notifications/user/{userId}")
+    public ResponseEntity<?> getEmployeeNotifications(@PathVariable Long userId) {
+        try {
+            return ResponseEntity.ok(projectService.getEmployeeNotifications(userId));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     /**

@@ -11,6 +11,7 @@ public class RequiredSkill {
     private String skillName;
     private String level;
     private Integer count;
+    private Integer criticality; // 1-5 importance level
 
     // taxonomy metadata (optional)
     private String domain;
@@ -36,6 +37,18 @@ public class RequiredSkill {
         this.skillName = skillName;
         this.level = level;
         this.count = count;
+        this.domain = domain;
+        this.family = family;
+        this.category = category;
+        this.type = type;
+    }
+
+    public RequiredSkill(String skillName, String level, Integer count, Integer criticality,
+                         String domain, String family, String category, String type) {
+        this.skillName = skillName;
+        this.level = level;
+        this.count = count;
+        this.criticality = criticality;
         this.domain = domain;
         this.family = family;
         this.category = category;
@@ -72,6 +85,14 @@ public class RequiredSkill {
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public Integer getCriticality() {
+        return criticality;
+    }
+
+    public void setCriticality(Integer criticality) {
+        this.criticality = criticality;
     }
 
     public String getDomain() {

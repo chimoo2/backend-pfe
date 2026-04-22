@@ -36,7 +36,4 @@ public class SkillCategoryRequirement {
     
     @Column
     private Integer minCriticality; // minimum skill criticality level (1-5)
-    
-    @Column
-    private Integer count; // how many people with this skill needed
 }

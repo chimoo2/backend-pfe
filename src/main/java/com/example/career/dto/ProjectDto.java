@@ -18,6 +18,7 @@ public class ProjectDto {
     private LocalDate endDate;
     private String status;
     private String manager;
+    private Integer count;
     private List<RequiredSkillDto> requiredSkills;
     private List<SkillCategoryRequirementDto> categoryRequirements;
 }

@@ -93,5 +93,25 @@
       { "skillName": "Selenium", "level": "Senior", "count": 1 },
       { "skillName": "CI/CD", "level": "Mid", "count": 1 }
     ]
+  },
+  {
+    "id": 107,
+    "name": "AI Recruitment Assistant",
+    "description": "Develop an AI-powered hiring assistant to recommend candidates and improve recruiting workflows.",
+    "manager": "lisa.wang@company.com",
+    "status": "To Do",
+    "startDate": "2026-05-10",
+    "endDate": "2026-11-10",
+    "requiredSkills": [
+      { "skillName": "Python", "level": "Senior", "count": 2 },
+      { "skillName": "Machine Learning", "level": "Senior", "count": 2 },
+      { "skillName": "Natural Language Processing", "level": "Intermediate", "count": 1 },
+      { "skillName": "FastAPI", "level": "Intermediate", "count": 1 },
+      { "skillName": "PostgreSQL", "level": "Mid", "count": 1 },
+      { "skillName": "Docker", "level": "Mid", "count": 1 }
+    ],
+    "categoryRequirements": [
+      { "filterType": "family", "filterValue": "Data Science", "description": "Data science and AI expertise", "minCriticality": 3, "count": 1 }
+    ]
   }
 ]

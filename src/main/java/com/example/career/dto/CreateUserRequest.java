@@ -22,4 +22,7 @@ public class CreateUserRequest {
 
     // Role can be ROLE_USER or ROLE_ADMIN
     private Role role = Role.ROLE_USER;
+
+    // Rôle métier actuel (ex: "Senior Developer")
+    private String currentRole;
 }

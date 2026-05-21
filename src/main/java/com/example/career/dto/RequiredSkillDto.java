@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
 public class RequiredSkillDto {
     private Long id;
     private String skillName;
-    private String level;
-    private Integer count;
     private Integer criticality;
     // optional taxonomy metadata
     private String domain;

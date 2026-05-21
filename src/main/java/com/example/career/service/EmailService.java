@@ -33,7 +33,7 @@ public class EmailService {
                     "<p>Vous avez demandé à réinitialiser votre mot de passe. Cliquez sur le lien ci-dessous :</p>" +
                     "<p><a href=\"" + resetLink + "\">Réinitialiser mon mot de passe</a></p>" +
                     "<p>Si vous n'avez pas demandé cette action, vous pouvez simplement ignorer ce message.</p>" +
-                    "<p>Cordialement,<br/>L'équipe CareerSavvy</p>";
+                    "<p>Cordialement,<br/>L'équipe CapTalent</p>";
 
             helper.setText(html, true);
             mailSender.send(message);

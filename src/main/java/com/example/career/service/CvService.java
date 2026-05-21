@@ -1,7 +1,11 @@
 package com.example.career.service;
 
+import com.example.career.model.UserSkill;
 import com.example.career.model.Document;
 import com.example.career.service.AiExtractionService;
+import com.example.career.repository.UserSkillRepository;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.example.career.model.User;
 import com.example.career.repository.DocumentRepository;
@@ -17,6 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CvService {
@@ -28,11 +33,21 @@ public class CvService {
     private final DocumentRepository documentRepository;
     private final AiExtractionService aiExtractionService;
     private final UserRepository userRepository;
+    private final UserSkillRepository userSkillRepository;
+    private final ObjectMapper objectMapper;
 
-    public CvService(DocumentRepository documentRepository, AiExtractionService aiExtractionService, UserRepository userRepository) {
+    public CvService(
+            DocumentRepository documentRepository,
+            AiExtractionService aiExtractionService,
+            UserRepository userRepository,
+            UserSkillRepository userSkillRepository,
+            ObjectMapper objectMapper
+    ) {
         this.documentRepository = documentRepository;
         this.aiExtractionService = aiExtractionService;
         this.userRepository = userRepository;
+        this.userSkillRepository = userSkillRepository;
+        this.objectMapper = objectMapper;
     }
 
     private static final List<String> ALLOWED_TYPES = Arrays.asList(
@@ -108,8 +123,76 @@ public class CvService {
         savedDoc.setAiReport(aiResponse);
         documentRepository.save(savedDoc);
 
+// 4bis️⃣ Persister automatiquement les skills extraites dans user_skill
+        persistExtractedSkillsToUserSkill(user, aiResponse);
+
 // 5️⃣ Retourner le document final
         return savedDoc;
+    }
+
+    private void persistExtractedSkillsToUserSkill(User user, String aiResponse) {
+        if (user == null || aiResponse == null || aiResponse.isBlank()) {
+            return;
+        }
+
+        try {
+            JsonNode root = objectMapper.readTree(aiResponse);
+            JsonNode skillsNode = root.path("skills");
+            if (!skillsNode.isArray()) {
+                return;
+            }
+
+            for (JsonNode skillNode : skillsNode) {
+                String skillName = text(skillNode, "skill_name");
+                if (skillName.isBlank()) {
+                    skillName = text(skillNode, "name");
+                }
+                if (skillName.isBlank()) {
+                    continue;
+                }
+
+                Optional<UserSkill> existing = userSkillRepository.findByUserAndSkillName(user, skillName);
+                UserSkill userSkill = existing.orElseGet(UserSkill::new);
+
+                userSkill.setUser(user);
+                userSkill.setSkillName(skillName);
+                userSkill.setCategory(text(skillNode, "category"));
+                userSkill.setFamily(text(skillNode, "family"));
+                userSkill.setType(text(skillNode, "type"));
+                userSkill.setLevel(text(skillNode, "level"));
+                userSkill.setDomain(text(skillNode, "domain"));
+
+                int experience = intValue(skillNode, "experience");
+                if (experience == 0) {
+                    experience = intValue(skillNode, "years_experience");
+                }
+                userSkill.setExperience(experience);
+
+                userSkillRepository.save(userSkill);
+            }
+        } catch (Exception e) {
+            System.err.println("[CvService] Unable to persist extracted skills to user_skill: " + e.getMessage());
+        }
+    }
+
+    private String text(JsonNode node, String field) {
+        JsonNode value = node.get(field);
+        return value == null || value.isNull() ? "" : value.asText("").trim();
+    }
+
+    private int intValue(JsonNode node, String field) {
+        JsonNode value = node.get(field);
+        if (value == null || value.isNull()) {
+            return 0;
+        }
+        if (value.isNumber()) {
+            return value.asInt();
+        }
+        try {
+            return Integer.parseInt(value.asText("0").trim());
+        } catch (NumberFormatException ex) {
+            return 0;
+        }
     }
 
     public void deleteDocument(Long docId, Long userId) throws IOException {

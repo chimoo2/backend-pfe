@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.career.dto.AuthResponse;
+import com.example.career.dto.ChangePasswordRequest;
 import com.example.career.dto.LoginRequest;
 import com.example.career.dto.RegisterRequest;
 import com.example.career.dto.ResetPasswordRequest;
@@ -59,8 +60,9 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest req) {
         try {
-            String token = authService.login(req.getEmail(), req.getPassword());
-            AuthResponse resp = new AuthResponse(token, jwtService.getJwtExpirationMs());
+            User user = authService.login(req.getEmail(), req.getPassword());
+            String token = jwtService.generateToken(user.getEmail());
+            AuthResponse resp = new AuthResponse(token, jwtService.getJwtExpirationMs(), user.isFirstLogin());
             return ResponseEntity.ok(resp);
         } catch (RuntimeException ex) {
             Map<String, String> body = new HashMap<>();
@@ -97,5 +99,28 @@ public class AuthController {
     public ResponseEntity<String> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
         String result = authService.resetPassword(request.getToken(), request.getNewPassword());
         return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(
+            @RequestHeader(name = "Authorization", required = false) String authHeader,
+            @Valid @RequestBody ChangePasswordRequest req) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(401).body(Map.of("error", "Missing or invalid Authorization header"));
+        }
+        if (!req.getNewPassword().equals(req.getConfirmPassword())) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Les mots de passe ne correspondent pas"));
+        }
+        String token = authHeader.substring(7);
+        String email = jwtService.validateTokenAndGetSubject(token);
+        if (email == null) {
+            return ResponseEntity.status(401).body(Map.of("error", "Token invalide ou expiré"));
+        }
+        try {
+            authService.changePassword(email, req.getOldPassword(), req.getNewPassword());
+            return ResponseEntity.ok(Map.of("message", "Mot de passe mis à jour avec succès"));
+        } catch (RuntimeException ex) {
+            return ResponseEntity.badRequest().body(Map.of("error", ex.getMessage()));
+        }
     }
 }

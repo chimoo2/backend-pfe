@@ -14,8 +14,10 @@ public class UserDto {
     private String nom;
     private String email;
     private Role role;
+    private boolean firstLogin;
     private String phone;
     private String company;
     private String position;
+    private String currentRole;
     private String cvPath;
 }

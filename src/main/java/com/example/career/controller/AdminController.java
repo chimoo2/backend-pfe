@@ -1,6 +1,7 @@
 package com.example.career.controller;
 
 import com.example.career.dto.CreateUserRequest;
+import com.example.career.dto.UpdateUserRequest;
 import com.example.career.dto.UserDto;
 import com.example.career.mapper.UserMapper;
 import com.example.career.model.User;
@@ -35,7 +36,9 @@ public class AdminController {
         user.setNom(request.getNom());
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
+
         user.setRole(request.getRole());
+        user.setCurrentRole(request.getCurrentRole());
 
         User saved = authService.register(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(UserMapper.toDto(saved));
@@ -59,13 +62,14 @@ public class AdminController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/users/{id}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @Valid @RequestBody CreateUserRequest request) {
+    public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @Valid @RequestBody UpdateUserRequest request) {
         User user = new User();
         user.setPrenom(request.getPrenom());
         user.setNom(request.getNom());
         user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
+        user.setPassword(request.getPassword()); // Peut être null ou vide
         user.setRole(request.getRole());
+        user.setCurrentRole(request.getCurrentRole());
         User updated = userService.updateUser(id, user);
         return ResponseEntity.ok(UserMapper.toDto(updated));
     }

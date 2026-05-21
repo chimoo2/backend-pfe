@@ -9,8 +9,6 @@ public class RequiredSkill {
     private Long id;
 
     private String skillName;
-    private String level;
-    private Integer count;
     private Integer criticality; // 1-5 importance level
 
     // taxonomy metadata (optional)
@@ -24,36 +22,6 @@ public class RequiredSkill {
     private Project project;
 
     public RequiredSkill() {}
-
-    public RequiredSkill(String skillName, String level, Integer count) {
-        this.skillName = skillName;
-        this.level = level;
-        this.count = count;
-    }
-
-    // convenience constructor with metadata
-    public RequiredSkill(String skillName, String level, Integer count,
-                         String domain, String family, String category, String type) {
-        this.skillName = skillName;
-        this.level = level;
-        this.count = count;
-        this.domain = domain;
-        this.family = family;
-        this.category = category;
-        this.type = type;
-    }
-
-    public RequiredSkill(String skillName, String level, Integer count, Integer criticality,
-                         String domain, String family, String category, String type) {
-        this.skillName = skillName;
-        this.level = level;
-        this.count = count;
-        this.criticality = criticality;
-        this.domain = domain;
-        this.family = family;
-        this.category = category;
-        this.type = type;
-    }
 
     public Long getId() {
         return id;
@@ -69,22 +37,6 @@ public class RequiredSkill {
 
     public void setSkillName(String skillName) {
         this.skillName = skillName;
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
     }
 
     public Integer getCriticality() {

@@ -38,6 +38,14 @@ public class ProjectController {
     }
 
     /**
+     * GET /api/projects/employees - Get all employee users
+     */
+    @GetMapping("/employees")
+    public ResponseEntity<?> getAllEmployees() {
+        return ResponseEntity.ok(projectService.getAllEmployees());
+    }
+
+    /**
      * GET /api/projects/{id} - Get project by ID
      */
     @GetMapping("/{id}")
@@ -153,5 +161,43 @@ public class ProjectController {
             return ResponseEntity.ok(latest);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    /**
+     * GET /api/projects/{id}/employee-scores - Get all employee scores for a project
+     */
+    @GetMapping("/{id}/employee-scores")
+    public ResponseEntity<?> getEmployeeScores(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(projectService.getEmployeeScoresForProject(id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error retrieving employee scores: " + e.getMessage());
+        }
+    }
+
+    /**
+     * GET /api/projects/{projectId}/employee-scores/{employeeId} - Get score for a specific employee
+     */
+    @GetMapping("/{projectId}/employee-scores/{employeeId}")
+    public ResponseEntity<?> getEmployeeScore(@PathVariable Long projectId, @PathVariable String employeeId) {
+        try {
+            return ResponseEntity.ok(projectService.getEmployeeScore(projectId, employeeId));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    /**
+     * GET /api/projects/{id}/top-candidates - Get top N candidates for a project
+     */
+    @GetMapping("/{id}/top-candidates")
+    public ResponseEntity<?> getTopCandidates(
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "10") int limit) {
+        try {
+            return ResponseEntity.ok(projectService.getTopCandidatesForProject(id, limit));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error retrieving top candidates: " + e.getMessage());
+        }
     }
 }

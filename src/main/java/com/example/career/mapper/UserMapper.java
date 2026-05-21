@@ -13,9 +13,11 @@ public class UserMapper {
         dto.setNom(user.getNom());
         dto.setEmail(user.getEmail());
         dto.setRole(user.getRole());
+        dto.setFirstLogin(user.isFirstLogin());
         dto.setPhone(user.getPhone());
         dto.setCompany(user.getCompany());
         dto.setPosition(user.getPosition());
+        dto.setCurrentRole(user.getCurrentRole());
         dto.setCvPath(user.getCvPath());
         return dto;
     }

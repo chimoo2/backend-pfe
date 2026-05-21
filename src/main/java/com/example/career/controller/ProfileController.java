@@ -4,6 +4,8 @@ import com.example.career.model.Document;
 import com.example.career.model.User;
 import com.example.career.repository.UserRepository;
 import com.example.career.service.CvService;
+import com.example.career.dto.UserDto;
+import com.example.career.mapper.UserMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,10 +55,35 @@ public class ProfileController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<User> getProfile(@PathVariable Long userId) {
-        return ResponseEntity.ok(
-                userRepository.findById(userId)
-                        .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"))
-        );
+    public ResponseEntity<UserDto> getProfile(@PathVariable Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+        return ResponseEntity.ok(UserMapper.toDto(user));
+    }
+    // Permet à chaque utilisateur de modifier son propre profil
+    @PutMapping
+    public ResponseEntity<?> updateOwnProfile(@RequestBody com.example.career.dto.UpdateUserRequest request, org.springframework.security.core.Authentication authentication) {
+        System.out.println("[DEBUG] Reçu updateOwnProfile: " + request);
+        try {
+            String email = authentication.getName();
+            User user = userRepository.findByEmail(email).orElse(null);
+            if (user == null) {
+                return ResponseEntity.notFound().build();
+            }
+            user.setPrenom(request.getPrenom());
+            user.setNom(request.getNom());
+            user.setEmail(request.getEmail());
+            user.setPhone(request.getPhone());
+            user.setCompany(request.getCompany());
+            user.setCurrentRole(request.getCurrentRole());
+            if (request.getPassword() != null && !request.getPassword().isBlank()) {
+                user.setPassword(request.getPassword());
+            }
+            userRepository.save(user);
+            return ResponseEntity.ok(UserMapper.toDto(user));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

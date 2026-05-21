@@ -39,6 +39,8 @@ public class AuthService {
             user.setRole(Role.ROLE_USER);
         }
 
+        // Accounts created by admin always require a password change on first login
+        user.setFirstLogin(true);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
@@ -48,6 +50,7 @@ public class AuthService {
         ensureEmailNotTaken(user.getEmail());
 
         user.setRole(Role.ROLE_USER);
+        user.setFirstLogin(false);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
@@ -65,7 +68,7 @@ public class AuthService {
     }
 
     
-    public String login(String email, String password) {
+    public User login(String email, String password) {
 
         // normalize email before lookup
         if (email != null) email = email.trim().toLowerCase();
@@ -78,9 +81,7 @@ public class AuthService {
             throw new RuntimeException("Mot de passe incorrect");
         }
 
-        // generate JWT token
-        String token = jwtService.generateToken(user.getEmail());
-        return token;
+        return user;
     }
 
    
@@ -118,6 +119,25 @@ public class AuthService {
 
     public java.util.Optional<com.example.career.model.User> getUserByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public void changePassword(String email, String oldPassword, String newPassword) {
+        if (email != null) email = email.trim().toLowerCase();
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
+
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            throw new RuntimeException("Mot de passe actuel incorrect");
+        }
+
+        if (newPassword == null || newPassword.length() < 6) {
+            throw new RuntimeException("Le nouveau mot de passe doit contenir au moins 6 caractères");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setFirstLogin(false);
+        userRepository.save(user);
     }
 }
 

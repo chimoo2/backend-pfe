@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class AuthResponse {
     private String accessToken;
     private long expiresIn;
+    private boolean forcePasswordChange;
 }

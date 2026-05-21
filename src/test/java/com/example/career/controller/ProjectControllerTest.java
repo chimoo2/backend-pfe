@@ -101,9 +101,26 @@ public class ProjectControllerTest {
         projectDto.setStatus("active");
         projectDto.setDescription("New Description");
         projectDto.setRequiredSkills(Arrays.asList(
-                new RequiredSkillDto(null, "Java", "Advanced", 3, null, null, null, null, null),
-                new RequiredSkillDto(null, "Spring", "Intermediate", 2, null, null, null, null, null)
-        ));
+        new RequiredSkillDto(
+                null,
+                "Java",
+                3,
+                "Software Engineering",
+                "Backend",
+                "Programming Language",
+                "Technical"
+        ),
+
+        new RequiredSkillDto(
+                null,
+                "Spring",
+                2,
+                "Software Engineering",
+                "Backend",
+                "Framework",
+                "Technical"
+        )
+));
         projectDto.setCategoryRequirements(Arrays.asList(
                 new SkillCategoryRequirementDto(null, "family", "Backend", "Need backend", 3)
         ));

@@ -3,6 +3,7 @@ package com.example.career.service;
 import com.example.career.dto.ProjectDto;
 import com.example.career.dto.RequiredSkillDto;
 import com.example.career.dto.SkillCategoryRequirementDto;
+import com.example.career.service.ProjectService;
 
 import org.junit.jupiter.api.Test;
 
@@ -47,8 +48,15 @@ public class ProjectServiceUnitTest {
         ProjectDto dto = new ProjectDto();
         dto.setId(5L);
         dto.setName("TestProj");
-        RequiredSkillDto skillDto = new RequiredSkillDto(null, "React", "Senior", 1, null,
-                "Software Engineering", "Frontend", "Programming Language", "Technical");
+        RequiredSkillDto skillDto = new RequiredSkillDto(
+    null,
+    "Java",
+    3,
+    "Software Engineering",
+    "Backend",
+    "Programming Language",
+    "Technical"
+);
         dto.setRequiredSkills(Arrays.asList(skillDto));
         SkillCategoryRequirementDto catReq = new SkillCategoryRequirementDto(null, "family", "Backend", "desc", 4);
         dto.setCategoryRequirements(Arrays.asList(catReq));

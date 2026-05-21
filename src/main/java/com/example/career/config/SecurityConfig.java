@@ -43,12 +43,14 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // Public authentication endpoints
                         .requestMatchers("/auth/login", "/auth/forgot-password", "/auth/reset-password", "/auth/register-public").permitAll()
+                        // Change-password requires authentication (Bearer token)
+                        .requestMatchers("/auth/change-password").authenticated()
                         // Only admins can create new accounts and manage users
                         .requestMatchers("/auth/register", "/admin/**").hasRole("ADMIN")
                         // Explicit allow for notification and assignment endpoints
                         .requestMatchers("/api/projects/notifications/**", "/api/projects/assigned/**", "/api/projects/*/assign/**").permitAll()
                         // Public read-only resources (projects/skills are used for catalog browsing)
-                        .requestMatchers("/api/projects", "/api/projects/**", "/api/skills/**", "/", "/index.html", "/static/**", "/uploads/**").permitAll()
+                        .requestMatchers("/api/projects", "/api/projects/**", "/api/skills/**", "/api/stats/**", "/", "/index.html", "/static/**", "/uploads/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

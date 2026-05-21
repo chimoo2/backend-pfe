@@ -35,10 +35,18 @@ public class User {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ToString.Exclude
     private String resetToken;
-    
+
+    @Column(name = "is_first_login")
+    private boolean firstLogin = true;
+
+
     private String phone;
     private String company;
     private String position;
+
+    // Rôle métier actuel (ex: "Senior Developer")
+    @Column(name = "\"current_role\"")
+    private String currentRole;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore

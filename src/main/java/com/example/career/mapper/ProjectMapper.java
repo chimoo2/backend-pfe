@@ -2,9 +2,11 @@ package com.example.career.mapper;
 
 import com.example.career.dto.ProjectDto;
 import com.example.career.dto.RequiredSkillDto;
+import com.example.career.dto.TeamMemberDto;
 import com.example.career.model.Project;
 import com.example.career.model.RequiredSkill;
 import com.example.career.model.SkillCategoryRequirement;
+import com.example.career.model.TeamMember;
 import com.example.career.dto.SkillCategoryRequirementDto;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +30,7 @@ public class ProjectMapper {
         dto.setStatus(project.getStatus());
         dto.setDescription(project.getDescription());
         dto.setCount(project.getCount());
+        dto.setDuration(project.getDuration());
 
         if (project.getRequiredSkills() != null) {
             List<RequiredSkillDto> skillDtos = project.getRequiredSkills().stream()
@@ -40,6 +43,12 @@ public class ProjectMapper {
                     .map(this::categoryToDto)
                     .collect(Collectors.toList());
             dto.setCategoryRequirements(reqs);
+        }
+        if (project.getTeamMembers() != null) {
+            List<TeamMemberDto> teamMembers = project.getTeamMembers().stream()
+                .map(this::teamMemberToDto)
+                .collect(Collectors.toList());
+            dto.setTeamMembers(teamMembers);
         }
 
         return dto;
@@ -59,6 +68,7 @@ public class ProjectMapper {
         project.setStatus(dto.getStatus());
         project.setDescription(dto.getDescription());
         project.setCount(dto.getCount());
+        project.setDuration(dto.getDuration());
 
         if (dto.getRequiredSkills() != null) {
             List<RequiredSkill> skills = dto.getRequiredSkills().stream()
@@ -72,6 +82,12 @@ public class ProjectMapper {
                     .collect(Collectors.toList());
             project.setCategoryRequirements(reqs);
         }
+        if (dto.getTeamMembers() != null) {
+            List<TeamMember> teamMembers = dto.getTeamMembers().stream()
+                .map(this::teamMemberToEntity)
+                .collect(Collectors.toList());
+            project.setTeamMembers(teamMembers);
+        }
 
         return project;
     }
@@ -84,8 +100,6 @@ public class ProjectMapper {
         RequiredSkillDto dto = new RequiredSkillDto();
         dto.setId(skill.getId());
         dto.setSkillName(skill.getSkillName());
-        dto.setLevel(skill.getLevel());
-        dto.setCount(skill.getCount());
         dto.setCriticality(skill.getCriticality());
         dto.setDomain(skill.getDomain());
         dto.setFamily(skill.getFamily());
@@ -103,8 +117,6 @@ public class ProjectMapper {
         RequiredSkill skill = new RequiredSkill();
         skill.setId(dto.getId());
         skill.setSkillName(dto.getSkillName());
-        skill.setLevel(dto.getLevel());
-        skill.setCount(dto.getCount());
         skill.setCriticality(dto.getCriticality());
         skill.setDomain(dto.getDomain());
         skill.setFamily(dto.getFamily());
@@ -141,5 +153,27 @@ public class ProjectMapper {
         req.setDescription(dto.getDescription());
         req.setMinCriticality(dto.getMinCriticality());
         return req;
+    }
+
+    public TeamMemberDto teamMemberToDto(TeamMember member) {
+        if (member == null) return null;
+        TeamMemberDto dto = new TeamMemberDto();
+        dto.setId(member.getId());
+        dto.setFirstName(member.getFirstName());
+        dto.setLastName(member.getLastName());
+        dto.setEmail(member.getEmail());
+        dto.setRole(member.getRole());
+        return dto;
+    }
+
+    public TeamMember teamMemberToEntity(TeamMemberDto dto) {
+        if (dto == null) return null;
+        TeamMember member = new TeamMember();
+        member.setId(dto.getId());
+        member.setFirstName(dto.getFirstName());
+        member.setLastName(dto.getLastName());
+        member.setEmail(dto.getEmail());
+        member.setRole(dto.getRole());
+        return member;
     }
 }
